@@ -17,6 +17,9 @@ public class State1 {
 
         int maxLen = lengthOfLongestSubstring("weuedjesfjrtr");
         System.out.println("最长子串长度:"+maxLen);
+
+        String maxL = longestPalindrome("12356787694");
+        System.out.println("最长回文子串:"+maxL);
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -68,5 +71,27 @@ public class State1 {
             map.put(s.charAt(j),j+1);
         }
         return maxLen;
+    }
+
+    //5. 最长回文子串
+    private String longestPalindrome(String s) {
+        int sLen = s.length();
+        int maxLen = 0;
+        String ans = "";
+        boolean[][] P = new boolean[sLen][sLen];
+        for (int len = 1; len <= sLen; len++) {
+            for (int start = 0; start < sLen; start++) {
+                int end = start + len - 1;
+                if (end >= sLen) {
+                    break;
+                }
+                P[start][end] = (len == 1 || len == 2 || P[start + 1][end - 1]) && s.charAt(start) == s.charAt(end);
+                if (P[start][end] && len > maxLen) {
+                    maxLen = len;
+                    ans = s.substring(start, end + 1);
+                }
+            }
+        }
+        return ans;
     }
 }
