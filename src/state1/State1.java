@@ -1,8 +1,6 @@
 package state1;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class State1 {
 
@@ -17,6 +15,8 @@ public class State1 {
         list1.get(0).next = list1.get(1);
         list1.get(1).next = list1.get(2);
 
+        int maxLen = lengthOfLongestSubstring("weuedjesfjrtr");
+        System.out.println("最长子串长度:"+maxLen);
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -54,5 +54,19 @@ public class State1 {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
+    }
+
+    //3. 无重复字符的最长子串
+    public int lengthOfLongestSubstring(String s) {
+        int maxLen = 0;
+        Map<Character,Integer> map = new HashMap<>();
+        for (int i = 0, j = 0; j < s.length(); j++) {
+            if (map.containsKey(s.charAt(j))) {
+                i = Math.max(map.get(s.charAt(j)),i);
+            }
+            maxLen = Math.max(maxLen,j-i+1);
+            map.put(s.charAt(j),j+1);
+        }
+        return maxLen;
     }
 }
