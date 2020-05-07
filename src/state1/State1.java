@@ -20,6 +20,8 @@ public class State1 {
 
         String maxL = longestPalindrome("12356787694");
         System.out.println("最长回文子串:"+maxL);
+
+        System.out.println("Z 字形变换:"+convert("LEETCODEISHIRING",4));
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -93,5 +95,43 @@ public class State1 {
             }
         }
         return ans;
+    }
+
+    //6. Z 字形变换
+    public String convert(String s, int numRows) {
+        if((s==null)||(s.length()==1)||(numRows==1))
+            return s;
+        char[] arr=s.toCharArray();
+        StringBuffer sb=new StringBuffer(arr.length);
+        int step=2*numRows-2;//每个满列之间的差值
+        int row=0;
+        int current=row;
+        int currentNeibor=0;
+        //第一行
+        for (int i=0;i<arr.length;i+=step)
+        {
+            sb.append(arr[i]);
+        }
+        row++;
+        //中间行
+        for(;row<numRows-1;row++)
+        {
+            current=row;
+            while(current<arr.length)
+            {
+                sb.append(arr[current]);
+                currentNeibor=current+step-2*row;
+                if (currentNeibor<arr.length)
+                    sb.append(arr[currentNeibor]);
+                current=current+step;
+            }
+        }
+        //最后一行
+        for(;row<arr.length;row+=step)
+        {
+            sb.append(arr[row]);
+        }
+        return sb.toString();
+
     }
 }
