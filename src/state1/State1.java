@@ -22,6 +22,7 @@ public class State1 {
         System.out.println("最长回文子串:"+maxL);
 
         System.out.println("Z 字形变换:"+convert("LEETCODEISHIRING",4));
+        System.out.println("整数反转:"+reverse(13579));
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -132,6 +133,32 @@ public class State1 {
             sb.append(arr[row]);
         }
         return sb.toString();
+    }
 
+    //7. 整数反转
+    public int reverse(int x) {
+        StringBuffer buf=new StringBuffer();
+        if(x>-2147483648||x<2147483647){
+            int y=Math.abs(x);
+            String s=String.valueOf(y);
+            char[] ch=s.toCharArray();
+            for(int i=ch.length-1;i>=0;i--){
+                buf.append(ch[i]);
+            }
+            String str=buf.toString();
+            try{
+                int num=Integer.parseInt(str);
+                if(x>=0)
+                    x=num;
+                if(x<0)
+                    x=-num;
+                return x;
+            }catch(NumberFormatException e){
+                System.out.println("NumberFormatException!please input the integer again!");
+                return 0;
+            }
+        }else{
+            return 0;
+        }
     }
 }
