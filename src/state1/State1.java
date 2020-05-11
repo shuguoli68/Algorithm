@@ -23,6 +23,7 @@ public class State1 {
 
         System.out.println("Z 字形变换:"+convert("LEETCODEISHIRING",4));
         System.out.println("整数反转:"+reverse(13579));
+        System.out.println("回文数:"+isPalindrome(13579));
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -160,5 +161,23 @@ public class State1 {
         }else{
             return 0;
         }
+    }
+
+    //9. 回文数
+    public boolean isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }
+        if(x==0){
+            return true;
+        }
+        int rev= 0;
+        int tmp = x;
+        while (tmp!=0){
+            int p = tmp%10;
+            tmp=tmp/10;
+            rev = rev * 10 +p ;
+        }
+        return rev ==x;
     }
 }
