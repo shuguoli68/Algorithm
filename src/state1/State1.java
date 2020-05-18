@@ -25,6 +25,7 @@ public class State1 {
         System.out.println("整数反转:"+reverse(13579));
         System.out.println("回文数:"+isPalindrome(13579));
         System.out.println("正则表达式匹配:"+isMatch("aa", "a*"));
+        System.out.println("11. 盛最多水的容器:"+maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
     }
 
     private int[] twoSum(int[] nums, int target) {
@@ -201,5 +202,15 @@ public class State1 {
             //没有星星的情况:第一个字符相等,而且剩下的text,匹配上剩下的pattern，没有星星且第一个匹配成功，那么s和p同时向右移动一位看是否仍然能匹配成功
             return first_match && isMatch(text.substring(1), pattern.substring(1));
         }
+    }
+
+    //11. 盛最多水的容器
+    public int maxArea(int[] height) {
+        int n=height.length;
+        int pre=0,next=n-1,max=0;
+        while(pre<next){
+            max=height[pre]>height[next]?Math.max(max,(next-pre)*height[next--]):Math.max(max,(next-pre)*height[pre++]);
+        }
+        return max;
     }
 }
