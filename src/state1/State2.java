@@ -1,7 +1,6 @@
 package state1;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class State2 {
     public void test2() {
@@ -9,6 +8,7 @@ public class State2 {
         System.out.println("12. 整数转罗马数字1994:"+intToRoman(1994));
         System.out.println("13. 罗马数字转整数romanToInt:"+romanToInt("MCMXCIV"));
         System.out.println("14. 最长公共前缀:"+longestCommonPrefix3(new String[]{"flower","flow","flight"}));
+        System.out.println("15. 三数之和:"+threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
 
     }
 
@@ -77,5 +77,30 @@ public class State2 {
             }
         }
         return result;
+    }
+
+    //15. 三数之和
+    public List<List<Integer>> threeSum(int[] nums) {
+        if(nums==null)
+            return null;
+        Arrays.sort(nums);
+        List<List<Integer>> ans=new ArrayList<List<Integer>>();
+        for(int i=0;i<nums.length-2;i++){
+            if(i>=1&&nums[i]==nums[i-1])//去重1，i是从前往后，所以与i-1比较。
+                continue;
+            int j=i+1,k=nums.length-1;
+            while(j<k){
+                if(nums[i]+nums[j]+nums[k]==0){
+                    ans.add(Arrays.asList(nums[i],nums[j],nums[k]));
+                    j++;k--;
+                    while(j<k&&nums[j]==nums[j-1])j++;//去重2,j是从前往后，所以与j-1比较
+                    while(j<k&&nums[k]==nums[k+1])k--;//去重3，k是从后往前，与k+1比较。
+                }else if(nums[i]+nums[j]+nums[k]>0)
+                    k--;
+                else
+                    j++;
+            }
+        }
+        return ans;
     }
 }
