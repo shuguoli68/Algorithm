@@ -9,6 +9,7 @@ public class State2 {
         System.out.println("13. 罗马数字转整数romanToInt:"+romanToInt("MCMXCIV"));
         System.out.println("14. 最长公共前缀:"+longestCommonPrefix3(new String[]{"flower","flow","flight"}));
         System.out.println("15. 三数之和:"+threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
+        System.out.println("16. 最接近的三数之和:"+threeSumClost(new int[]{-1,2,1,-4}, 1));
 
     }
 
@@ -102,5 +103,28 @@ public class State2 {
             }
         }
         return ans;
+    }
+
+    //16. 最接近的三数之和
+    public  static int threeSumClost(int[] nums,int target){
+        Arrays.sort(nums);
+        int clost = Integer.MAX_VALUE,sub = 0,abssub = 0,sum = 0; // 定义最接近的数,目前差值
+        for(int i = 1 ; i < nums.length - 1 ; i++){
+            int left = 0, right = nums.length - 1;
+            while(left < i && right > i){
+
+                sub = nums[left] + nums[right] + nums[i] - target;
+                abssub = Math.abs(sub);
+
+                if(clost > abssub){
+                    clost = abssub;
+                    sum = nums[left] + nums[right] + nums[i] ;
+                }
+                if(sub > 0){ right--;}
+                else if(sub < 0 ){ left++;}
+                else{ sum = nums[left] + nums[right] + nums[i] ; break; }
+            }
+        }
+        return sum;
     }
 }
