@@ -10,6 +10,7 @@ public class State2 {
         System.out.println("14. 最长公共前缀:"+longestCommonPrefix3(new String[]{"flower","flow","flight"}));
         System.out.println("15. 三数之和:"+threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
         System.out.println("16. 最接近的三数之和:"+threeSumClost(new int[]{-1,2,1,-4}, 1));
+        System.out.println("17. 电话号码的字母组合:"+letterCombinations("23"));
 
     }
 
@@ -126,5 +127,40 @@ public class State2 {
             }
         }
         return sum;
+    }
+
+    //17. 电话号码的字母组合
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new LinkedList<String>();
+        if(digits.length() == 0) return ans;
+        Map<Integer, String> dictionary = new HashMap<Integer, String>();
+        dictionary.put(2, "abc");
+        dictionary.put(3, "def");
+        dictionary.put(4, "ghi");
+        dictionary.put(5, "jkl");
+        dictionary.put(6, "mno");
+        dictionary.put(7, "pqrs");
+        dictionary.put(8, "tuv");
+        dictionary.put(9, "wxyz");
+
+        for(int digitsIndex = 0; digitsIndex < digits.length(); digitsIndex++){
+            String s = dictionary.get(digits.charAt(digitsIndex) - 48);
+            if(digitsIndex == 0){
+                for(int sIndex = 0; sIndex < s.length(); sIndex++){
+                    ans.add(s.substring(sIndex, sIndex + 1));
+                }
+            }
+            else{
+                int ansLength = ans.size();
+                for(int ansIndex = 0; ansIndex < ansLength; ansIndex++){
+                    String oldElement = ans.remove(0);
+                    int sLength = s.length();
+                    for(int sIndex = 0; sIndex < sLength; sIndex++){
+                        ans.add(oldElement + s.substring(sIndex, sIndex + 1));
+                    }
+                }
+            }
+        }
+        return ans;
     }
 }
