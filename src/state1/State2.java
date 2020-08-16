@@ -11,6 +11,7 @@ public class State2 {
         System.out.println("15. 三数之和:"+threeSum(new int[]{-1, 0, 1, 2, -1, -4}));
         System.out.println("16. 最接近的三数之和:"+threeSumClost(new int[]{-1,2,1,-4}, 1));
         System.out.println("17. 电话号码的字母组合:"+letterCombinations("23"));
+        System.out.println("18. 四数之和:"+fourSum(new int[]{1, 0, -1, 0, -2, 2}, 0));
 
     }
 
@@ -162,5 +163,45 @@ public class State2 {
             }
         }
         return ans;
+    }
+
+    //18. 四数之和
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> List = new ArrayList<List<Integer>>();
+        Arrays.sort(nums);
+        int He;
+        for(int i=0;i<nums.length-3;i++) {
+            if(i!=0&&nums[i-1]==nums[i]) 
+                continue;
+            for(int j=i+1;i<j&&j<nums.length-2;j++) {
+                if(j!=i+1&&nums[j-1]==nums[j]) 
+                    continue;
+                if(nums[j]>0&&nums[i]+nums[j]>target) 
+                    break;
+                for(int k=j+1,l=nums.length-1;k<l;) {
+                    He=nums[i]+nums[j]+nums[k]+nums[l];
+                    if(He<target)
+                        k++;
+                    else if(He>target)
+                        l--;
+                    else {
+                        List.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                        while(nums[k]==nums[k+1]) {
+                            k++;
+                            if(k>=l)
+                                break;
+                        }
+                        while(nums[l]==nums[l-1]) {
+                            l--;
+                            if(k>=l)
+                                break;
+                        }
+                        k++;
+                        l--;
+                    }
+                }
+            }
+        }
+        return List;
     }
 }
